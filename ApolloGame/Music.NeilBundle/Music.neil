@@ -1,1 +1,53 @@
-// Code comes later
+// License Information:
+// ApolloGame/Music.NeilBundle/Music.neil
+// Music
+// version: 20.09.08
+// Copyright (C) 2020 Jeroen P. Broks
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+bool MusicAvailable
+
+init
+	MusicAvailable = JCR6.EntryExists("ID/Music.md")
+	if MusicAvailable
+		Print("Music detected")
+	else
+		Print("Music not detected")
+	end
+end
+
+
+module
+
+	void Play(string File)
+		if not MusicAvailable
+			return
+		end
+		cout("Requested music: ",File,"\n")
+		State.Call("SUB_MUSIC","_SubMusic.Play",Sprintf("\"%s\"",File))
+	end
+	
+	void Stop()
+		if not MusicAvailable
+			return
+		end
+		State.Call("SUB_MUSIC","_SubMusic.Stop")
+	end
+	
+	CONSTRUCTOR
+		State.LoadNew("SUB_MUSIC","Libs/Music.NeilBundle/SubMusic.neil")
+	end
+	
+end
