@@ -1,6 +1,6 @@
 // License Information:
-// ApolloGame/Music.NeilBundle/Music.neil
-// Music
+// ApolloGame/Music.NeilBundle/_neilbundle.neil
+// Music Manager
 // version: 20.09.17
 // Copyright (C) 2020 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
@@ -17,37 +17,4 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-bool MusicAvailable
-
-init
-	MusicAvailable = JCR6.EntryExists("ID/Music.md")
-	if MusicAvailable
-		Print("Music detected")
-	else
-		Print("Music not detected")
-	end
-end
-
-
-module
-
-	void Play(string File)
-		if not MusicAvailable
-			return
-		end
-		cout("Requested music: ",File,"\n")
-		State.Call("SUB_MUSIC","_SubMusic.Play",Sprintf("\"%s\"",File))
-	end
-	
-	void Stop()
-		if not MusicAvailable
-			return
-		end
-		State.Call("SUB_MUSIC","_SubMusic.Stop")
-	end
-	
-	CONSTRUCTOR
-		State.LoadNew("SUB_MUSIC","Libs/Music.NeilBundle/SubMusic.neil")
-	end
-	
-end
+return Lua.Neil.Use("libs/music.neilbundle/music")
