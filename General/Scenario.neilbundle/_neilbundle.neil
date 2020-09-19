@@ -43,6 +43,11 @@ class ScenRec
 	string AltTxtFont
 	string SoundFile
 	table Lines
+	
+	CONSTRUCTOR
+		Lines = {}
+	end
+	
 end	
 
 void ProcessBLine(Rec,string Prefix,string DLine)
@@ -62,7 +67,8 @@ void ProcessBLine(Rec,string Prefix,string DLine)
 			// ["%"] = function(Rec,DLine) Rec.AltTxtFont = "Fonts/"..DLine..".ttf"; CSay("Font: "..DLine)  end, -- Alternate font
 			Rec.AltTxtFont = "Fonts/"..DLine..".ttf"
 		case "#"
-			mtable.insert(Rec.Lines,DLine)
+			//mtable.insert(Rec.Lines,DLine)
+			Rec.Lines+=DLine
 		case "$"
 			Rec.SoundFile = DLine
 		case "-"
@@ -70,6 +76,11 @@ void ProcessBLine(Rec,string Prefix,string DLine)
 		default
 			Lua.error("Unknown scenario prefix - "..Prefix)
 	end
+	//if !Rec
+	//	print("Rec = nil?",Prefix,DLine,"N/A")
+	//else
+	//	print(Rec,Prefix,DLine,#Rec.Lines,Rec.Header,Rec.PicDir)
+	//end
 end
 
 int len(a) 
@@ -179,8 +190,11 @@ module
 							if Prefix=="@" then
 								WorkRec = new ScenRec()
 								//{ Lines = {}, Header="", PicDir="", PicSpc="", SoundFile="" }
-								mtable.insert(ret[DLine],WorkRec)                
+								//mtable.insert(ret[DLine],WorkRec)                
+								ret[DLine] += WorkRec
+								//Lua.print("WorkRec: ",WorkRec)
 							elseif #L>1 then
+								//Lua.print("Processing: ",WorkRec)
 								ProcessBLine(WorkRec,Prefix,DLine)   
 							end
 						default
