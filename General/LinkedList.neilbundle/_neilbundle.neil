@@ -1,8 +1,8 @@
 // License Information:
-// LinkedList.nlb/LinkedList.nil
-// Linked List support for NIL
-// version: 19.10.29
-// Copyright (C)  Jeroen P. Broks
+// General/LinkedList.neilbundle/_neilbundle.neil
+// Linked List
+// version: 20.12.27
+// Copyright (C) 2020 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
 // arising from the use of this software.
@@ -282,5 +282,3 @@ end
 
 
 return TLinkedList
-
-

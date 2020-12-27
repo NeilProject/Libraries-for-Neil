@@ -1,8 +1,8 @@
 // License Information:
-// xmath.nlb/xmath.nil
-// xmath
-// version: 19.11.01
-// Copyright (C)  Jeroen P. Broks
+// General/xmath.neilbundle/_NeilBundle.neil
+// xMath Neil Bundel
+// version: 20.12.27
+// Copyright (C) 2020 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
 // arising from the use of this software.
@@ -80,5 +80,3 @@ class m_xmath
 end
 
 return new m_xmath ()
-
-
