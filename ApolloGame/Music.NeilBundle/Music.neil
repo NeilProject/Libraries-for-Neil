@@ -46,6 +46,20 @@ module
 		State.Call("SUB_MUSIC","_SubMusic.Stop")
 	end
 	
+	void Push()
+		if not MusicAvailable
+			return
+		end
+		State.Call("SUB_MUSIC","_SubMusic.Push")
+	end
+	
+	void Pop()
+		if not MusicAvailable
+			return
+		end
+		State.Call("SUB_MUSIC","_SubMusic.Pop")
+	end
+	
 	CONSTRUCTOR
 		State.LoadNew("SUB_MUSIC","Libs/Music.NeilBundle/SubMusic.neil")
 	end

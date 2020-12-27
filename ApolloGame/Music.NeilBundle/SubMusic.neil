@@ -24,6 +24,7 @@ group _SubMusic
 
 	string Playing
 	var MusObject
+	table pushed = {}
 	
 	void Play(string File)
 		Audio.Chat=true // Debug
@@ -44,6 +45,22 @@ group _SubMusic
 		end
 		Print("Stopping music on channel: PlayChannel")
 		Audio.Stop(PlayChannel)
+		Playing=""
 	end
-
+	
+	void Push()
+		if Playing=""
+			return
+		end
+		pushed += Playing
+	end
+	
+	void Pop()
+		if #pushed==0
+			return
+		end
+		string popped = pushed[#pushed]
+		pushed[#pushed]=nil
+		Play(Popped)
+	end
 end
