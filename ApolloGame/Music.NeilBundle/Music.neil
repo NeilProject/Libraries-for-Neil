@@ -43,21 +43,21 @@ module
 		if not MusicAvailable
 			return
 		end
-		State.Call("SUB_MUSIC","_SubMusic.Stop")
+		State.Call("SUB_MUSIC","_SubMusic.Stop","nil")
 	end
 	
 	void Push()
 		if not MusicAvailable
 			return
 		end
-		State.Call("SUB_MUSIC","_SubMusic.Push")
+		State.Call("SUB_MUSIC","_SubMusic.Push","nil")
 	end
 	
 	void Pop()
 		if not MusicAvailable
 			return
 		end
-		State.Call("SUB_MUSIC","_SubMusic.Pop")
+		State.Call("SUB_MUSIC","_SubMusic.Pop","nil")
 	end
 	
 	CONSTRUCTOR

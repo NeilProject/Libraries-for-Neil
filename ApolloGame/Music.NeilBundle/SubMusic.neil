@@ -49,7 +49,7 @@ group _SubMusic
 	end
 	
 	void Push()
-		if Playing=""
+		if Playing==""
 			return
 		end
 		pushed += Playing
