@@ -136,7 +136,7 @@ class TLinkedList
     end
     
     get int LEN
-		return $Count
+		return Count
 	end
 
     
