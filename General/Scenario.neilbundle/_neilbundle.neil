@@ -65,7 +65,8 @@ void ProcessBLine(Rec,string Prefix,string DLine)
 			// Dummied old line, as this is also referring to .ttf files.
 			// BlitzMax could read them, but MonoGame cannot.
 			// ["%"] = function(Rec,DLine) Rec.AltTxtFont = "Fonts/"..DLine..".ttf"; CSay("Font: "..DLine)  end, -- Alternate font
-			Rec.AltTxtFont = "Fonts/"..DLine..".ttf"
+			Rec.AltTxtFont = "Fonts/"..DLine..".jfbf"
+			//..".ttf"
 		case "#"
 			//mtable.insert(Rec.Lines,DLine)
 			Rec.Lines+=DLine
