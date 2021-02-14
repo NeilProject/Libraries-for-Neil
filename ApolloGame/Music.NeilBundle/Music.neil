@@ -60,6 +60,10 @@ module
 		State.Call("SUB_MUSIC","_SubMusic.Pop","nil")
 	end
 	
+	get delegate Pull
+		return Pop
+	end
+	
 	CONSTRUCTOR
 		State.LoadNew("SUB_MUSIC","Libs/Music.NeilBundle/SubMusic.neil")
 	end
