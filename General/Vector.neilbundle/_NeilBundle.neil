@@ -73,7 +73,7 @@ module class
 	end
 	
 	var __NumberIndex(int idx)
-		lua.assert(idx>=0 && idx<_length,"Vector index out of range")
+		lua.assert(idx>=0 && idx<_length,"Vector index out of range ("..idx..".".._length..")")
 		return tab[idx]
 	end
 	
@@ -97,6 +97,42 @@ module class
 			end
 			i++
 			return ret
+		end
+		return ret
+	end
+	
+	get delegate IEach
+		int i=0
+		delegate ret 
+		ret = var()
+			if i>=_length
+				return nil
+			end
+			var ret = tab[i]
+			if ret==nil
+				ret = "nil"
+				// As Lua will stop iteration as soon as 'nil' is reached this was needed as a protection!
+			end
+			i++
+			return i-1
+		end
+		return ret
+	end
+	
+	get delegate IPairs
+		int i=0
+		delegate ret 
+		ret = var()
+			if i>=_length
+				return nil
+			end
+			var ret = tab[i]
+			if ret==nil
+				ret = "nil"
+				// As Lua will stop iteration as soon as 'nil' is reached this was needed as a protection!
+			end
+			i++
+			return i-1,ret
 		end
 		return ret
 	end
