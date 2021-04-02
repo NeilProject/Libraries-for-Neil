@@ -1,0 +1,106 @@
+module class
+
+	#region data
+	readonly table _actualtable
+	readonly string wanttype
+	readonly int max1
+	readonly int max2
+	readonly bool verystrict
+	
+	get int fullmax
+		return max1*max2
+	end
+	#endregion
+	
+	#region Kill & Destroy
+	void Clear()
+		for i=0,fullmax
+			switch wanttype
+				case "string" 
+					_actualtable[i] = ""
+				case "int" "number"
+					_actualtable[i] = 0
+				case "bool" "boolean"
+					_actualtable[i] = false
+				case "plua"
+					Lua.error("Plua not supproted for Dim2")
+				default
+					_actualtable[i] = nil
+			end
+		end
+	end
+	#endregion
+	
+	#region In the beginning!
+	constructor (string t,int mx1, int mx2,sverystrict)
+		_actualtable = {}
+		wanttype = t:lower()
+		max1 = mx1
+		max2 = mx2
+		verystrict = sverystrict!=nil && sverystrict!=false
+		Clear()
+	end
+	#endregion
+	
+	#region Read and write
+	void SetValue(int i1,int i2,var value)
+		Lua.assert(i1>=0 && i2>=0 && i1<max1 && i2<max2,sprintf("SetValue(%d,%d,%s): Out of range",i1,i2,Lua.tostring(value)))
+		int i = i1+(i2*max1)
+		switch wanttype
+			case "var"
+				// Anything goes
+				_actualtable[i] = value
+			case "string"
+				if verystrict
+					Lua.assert(Lua.type(value)=="string",sprintf("SetValue(%d,%d,%s): string value expected and I got %s",i1,i2,Lua.tostring(value),type(value)))
+				end
+				_actualtable[i] = Lua.tostring(value)
+			case "int"
+				Lua.assert(Lua.type(value)=="number",sprintf("SetValue(%d,%d,%s): nummeric value expected and I got %s",i1,i2,Lua.tostring(value),type(value)))
+				if verystrict
+					Lua.assert(math.floor(value)==value,sprintf("SetValue(%d,%d,%s): value is not an interger",i1,i2,Lua.tostring(value)))
+				end
+				_actualtable[i] = math.floor(value)
+			case "number"
+				Lua.assert(Lua.type(value)=="number",sprintf("SetValue(%d,%d,%s): nummeric value expected and I got %s",i1,i2,Lua.tostring(value),type(value)))
+				_actualtable[i] = value
+			case "boolean"
+				if verystrict
+					Lua.assert(Lua.type(value)=="boolean",sprintf("SetValue(%d,%d,%s): boolean value expected and I got %s",i1,i2,Lua.tostring(value),type(value)))					
+				end
+				_actualtable[i] = value!=nil && value!=false
+			case "table" 
+				Lua.assert(value==nil || Lua.type(value)=="table",sprintf("SetValue(%d,%d,%s): table value expected and I got %s",i1,i2,Lua.tostring(value),type(value)))
+				_actualtable[i] = value
+			default
+				Lua.error("Class specific Dim2 not yet supported!")
+		end
+	end	
+				
+	var GetValue(int i1,int i2)
+		return _actualtable[i1+(i2*max1)]
+	end
+	#endregion
+	
+	
+	#region foreach
+	get delegate Serial
+		int i=0
+		var ret()
+			if i>=fullmax
+				return nil,nil,nil
+			end
+			int r1
+			int r2
+			var vl
+			r1 = i  %  max1
+			r2 = i div max1
+			vl = _actualtable[i]
+			i++
+			return r1,r2,vl
+		end
+		return ret
+	end
+	#endregion
+	
+End
