@@ -60,6 +60,14 @@ module
 		State.Call("SUB_MUSIC","_SubMusic.Pop","nil")
 	end
 	
+	// Will pop one item from the stack, but won't load & play that item
+	void PopVoid()
+	if not MusicAvailable
+			return
+		end
+		State.Call("SUB_MUSIC","_SubMusic.PopVoid","nil")
+	end	
+	
 	get delegate Pull
 		return Pop
 	end
