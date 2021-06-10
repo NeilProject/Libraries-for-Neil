@@ -63,4 +63,12 @@ group _SubMusic
 		pushed[#pushed]=nil
 		Play(Popped)
 	end
+	
+	void PopVoid()
+		if #pushed==0
+			return
+		end
+		string popped = pushed[#pushed]
+		pushed[#pushed]=nil
+	end
 end
