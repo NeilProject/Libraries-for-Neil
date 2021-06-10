@@ -63,7 +63,7 @@ class m_xmath
 		end
 	end
 	
-	int round(int r)
+	int round(number r)
 		return math.floor(r+0.5)
 	end
 	
