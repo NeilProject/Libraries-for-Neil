@@ -80,6 +80,10 @@ class TLinkedList
 		First = nil;
 		Last = nil;
 	end
+	
+	get bool Empty
+		Return First==nil
+	End
    
     private static void chat(string cht)
         if self._debug
