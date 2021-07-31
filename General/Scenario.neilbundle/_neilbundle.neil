@@ -119,7 +119,7 @@ module
 	link portret = portret
 	// link btdata = btdata
 	link RemoveData = RemoveData
-	link Loaded = Image.Loaded
+	link Loaded = Image.Loaded	
 	
 	get table btdata
 		return gbtdata
@@ -139,8 +139,9 @@ module
 	
 	string audioext
 	void CONSTRUCTOR()
-		self.audioext = "wav"
-		self.print = print
+		self.audioext = "ogg"
+		self.print = Lua.Neil.Globals.Print
+		Print("Scenario parser loaded")
 	end
 
 	table LoadData(string file,loadas,merge)
@@ -155,8 +156,9 @@ module
 		string Line
 
 		table crap 
-		self.print("Loading: Scenario/"..lang.."/"..file)
+		//self.print("Loading: Scenario/"..lang.."/"..file)
 		//crap = scen.JCR_Lines('Scenario/'..lang.."/"..file)
+		Print("Loading Scenarion: ",file)
 		crap = JCR_Lines(file)
 		self.print("= "..#crap.." lines read!")
 		table ret
@@ -244,14 +246,16 @@ module
 		end
 
 		//-- Auto Tie Sound Files
+		Print("Looking for vocals!")
 		for k,tag in pairs(ret)
 			for i,rec in pairs(tag) 
 				if self.JCR_Exists("VOCALS/"..file.."/"..k.."_"..i.."."..self.audioext) 
 					rec.SoundFile = "Vocals/"..file.."/"..k.."_"..i.."."..self.audioext 
-					if CSay 
-						CSay("Got sound for "..k.." #"..i) 
-					end
+					//if CSay 
+						Print("Got sound for "..k.." #"..i) 
+					//end
 				else
+					Print("Vocals/"..file.."/"..k.."_"..i.."."..self.audioext .. " not found!")
 					//-- CSay("no sound for "..k.." #"..i.."   (VOCALS/"..file.."/"..k.."_"..i..".ogg)",255,0,0) -- Only annoying. Can be unremmed if needed (which I doubt).  
 				end
 			end 
