@@ -25,6 +25,29 @@ group _SubMusic
 	string Playing
 	var MusObject
 	table pushed = {}
+	Int _MusicVolume = 100
+	
+	Set Int MusicVolume 
+		Audio.Volume(PlayChannel,value)
+		_MusicVolume=value
+	End
+	
+	Get Int MusicVolume
+		Return _MusicVolume
+	End
+	
+	Void FadeTo(Int nv)
+		While nv>MusicVolume
+			MusicVolume++
+			FPS.WaitMinTicks()
+			Events.Poll()
+		End
+		While nv<MusicVolume
+			MusicVolume--
+			FPS.WaitMinTicks()
+			Events.Poll()
+		End
+	End
 	
 	void Play(string File)
 		Audio.Chat=true // Debug
@@ -37,6 +60,7 @@ group _SubMusic
 		Playing=File
 		MusObject.Play(PlayChannel,true)
 		print("Playing on channel: PlayChannel")
+		MusicVolume = 100
 	end
 	
 	void Stop()

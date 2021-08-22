@@ -62,7 +62,7 @@ module
 	
 	// Will pop one item from the stack, but won't load & play that item
 	void PopVoid()
-	if not MusicAvailable
+		if not MusicAvailable
 			return
 		end
 		State.Call("SUB_MUSIC","_SubMusic.PopVoid","nil")
@@ -71,6 +71,20 @@ module
 	get delegate Pull
 		return Pop
 	end
+	
+	Void FadeTo(int volumevalue)
+		if not MusicAvailable
+			return
+		end
+		State.Call("SUB_MUSIC","_SubMusic.FadeTo",sprintf("%d",volumevalue))
+	End
+	
+	Get Int MusicVolume
+		if not MusicAvailable
+			return 0
+		end
+		Return ISGET.INT("SUB_MUSIC","_SubMusic.MusicVolume")
+	End
 	
 	CONSTRUCTOR
 		State.LoadNew("SUB_MUSIC","Libs/Music.NeilBundle/SubMusic.neil")
