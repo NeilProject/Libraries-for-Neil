@@ -17,65 +17,69 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-bool MusicAvailable
+Bool MusicAvailable
 
-init
+Init
 	MusicAvailable = JCR6.EntryExists("ID/Music.md")
-	if MusicAvailable
+	If MusicAvailable
 		Print("Music detected")
-	else
+	Else
 		Print("Music not detected")
-	end
-end
+	End
+End
 
 
-module
+Module
 
-	void Play(string File)
+	Get Bool Available
+		Return MusicAvailable
+	End
+
+	Void Play(string File)
 		if not MusicAvailable
 			return
 		end
 		cout("Requested music: ",File,"\n")
 		State.Call("SUB_MUSIC","_SubMusic.Play",Sprintf("\"%s\"",File))
-	end
+	End
 	
-	void Stop()
+	Void Stop()
 		if not MusicAvailable
 			return
 		end
 		State.Call("SUB_MUSIC","_SubMusic.Stop","nil")
-	end
+	End
 	
-	void Push()
-		if not MusicAvailable
-			return
-		end
+	Void Push()
+		If not MusicAvailable
+			Return
+		End
 		State.Call("SUB_MUSIC","_SubMusic.Push","nil")
-	end
+	End
 	
-	void Pop()
-		if not MusicAvailable
-			return
-		end
+	Void Pop()
+		If Not MusicAvailable
+			Return
+		End
 		State.Call("SUB_MUSIC","_SubMusic.Pop","nil")
-	end
+	End
 	
 	// Will pop one item from the stack, but won't load & play that item
-	void PopVoid()
-		if not MusicAvailable
-			return
-		end
+	Void PopVoid()
+		If Not MusicAvailable
+			Return
+		End
 		State.Call("SUB_MUSIC","_SubMusic.PopVoid","nil")
-	end	
+	End	
 	
-	get delegate Pull
-		return Pop
-	end
+	Get Delegate Pull
+		Return Pop
+	End
 	
 	Void FadeTo(int volumevalue)
-		if not MusicAvailable
-			return
-		end
+		If Not MusicAvailable
+			Return
+		End
 		State.Call("SUB_MUSIC","_SubMusic.FadeTo",sprintf("%d",volumevalue))
 	End
 	
@@ -88,6 +92,6 @@ module
 	
 	CONSTRUCTOR
 		State.LoadNew("SUB_MUSIC","Libs/Music.NeilBundle/SubMusic.neil")
-	end
+	End
 	
 end
