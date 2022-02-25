@@ -1,0 +1,39 @@
+Module Class
+	ReadOnly Static Table Img = { Image.LoadNew("Libs/SinusShade.neilbundle/VSinus.bmp","SINUSSHADEV"),Image.LoadNew("Libs/SinusShade.neilbundle/HSinus.bmp","SINUSSHADEH") }
+	Int R1
+	Int R2
+	Int G1
+	Int G2
+	Int B1
+	Int B2
+	
+	ReadOnly Table Mod1 = {["X"]=0, ["Y"]=math.random(1,1000)}
+	ReadOnly Table Mod2 = {["X"]=math.random(1,1000), ["Y"]=0}
+	
+	Constructor(Int _R1, Int _G1, Int _B1, _R2, _G2, _B2)
+		R1 = _R1
+		G1 = _G1
+		B1 = _B1
+		R2 = _R2 || _R1
+		G2 = _G2 || _G1
+		B2 = _B2 || _B1
+	End
+	
+	Void Draw(dontmove)
+		If !dontmove
+			Mod1.Y = (Mod1.Y+1)%Img[1].H
+			Mod2.X = (Mod2.X+1)%Img[2].W
+		End	
+		Graphics.AdditiveBlend()
+		For i=1,2
+			Graphics.Color(self["R"..i],self["G"..i],self["B"..i])
+			Img[i].XTile(0,0,Screen.W,Screen.H,self["Mod"..i].X,self["Mod"..i].Y,0)
+			//if i==2
+				Img[i].XTile(0,0,Screen.W,Screen.H,self["Mod"..i].X+(Img[i].W div 2),self["Mod"..i].Y,0)
+			//end
+			//CSayF("%d:Modulos: %d,%d",i,self["Mod"..i].X,self["Mod"..i].Y)
+		End
+		Graphics.AlphaBlend()
+		Graphics.Color(255,255,255)
+	End
+End
