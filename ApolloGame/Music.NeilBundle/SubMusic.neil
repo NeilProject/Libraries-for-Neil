@@ -56,7 +56,9 @@ group _SubMusic
 			return
 		end
 		cout("Loading music: ",file,"\n")
-		MusObject = Audio.Load(File)
+		Static Int Num
+		Num = (Num+1)%2		
+		MusObject = Audio.Load(File,"LIB_MUSIC__"..Num)
 		Playing=File
 		MusObject.Play(PlayChannel,true)
 		print("Playing on channel: PlayChannel")
