@@ -20,7 +20,9 @@
 group KBKey                                                            
         // list is not complete. I will add more if I need them!     
         readonly int up = Events.KeyByName("Up")                     
-        readonly int down = Events.KeyByName("Down")                 
+        readonly int down = Events.KeyByName("Down")
+        readonly int left = Events.KeyByName("Left")
+        readonly int right = Events.KeyByName("Right")
         readonly int pageup = Events.KeyByName("PageUp")             
         readonly int pagedown = Events.KeyByName("PageDown")         
         readonly int backspace = Events.KeyByName("Backspace")       
