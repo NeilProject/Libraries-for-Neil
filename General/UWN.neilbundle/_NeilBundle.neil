@@ -1,0 +1,36 @@
+
+
+// UWN = Use When Needed
+
+#define debug_uwn
+
+Var Reg
+
+Var GetModule(string m)
+	m = m:upper()
+	Reg = Reg || {}
+	#if debug_uwn
+	If !Reg[m]
+		print(ApolloState.Name.."> Compiling: "..m)
+	End
+	#fi
+	Reg[m] = Reg[m] || NeilUse(m)
+	Return Reg[m]
+End
+
+
+Void Err(s,string k, v)
+	Lua.error("Cannot assign %s (%s) to key %k in UWN module. All of that is read-only!",Lua.type(v),Lua.tostring(v),k)
+End
+
+Var _UWN(string path)
+	if !suffixed(path,"/")
+		path += "/"
+	End
+	Var idx(s,string k)		
+		Return GetModule(path..k)
+	End
+	return Lua.setmetatable({},{["__index"]=idx,["__newindex"]=Err})
+End
+
+Return _UWN
