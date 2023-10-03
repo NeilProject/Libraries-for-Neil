@@ -73,12 +73,12 @@ class TLinkedList
 		o = First
 		while o
 			n = o.Next
-			o.Next=nil;
-			o.Previous=nil;
+			o.Next=nil
+			o.Previous=nil
 			o = n
 		end		
-		First = nil;
-		Last = nil;
+		First = nil
+		Last = nil
 	end
 	
 	get bool Empty
